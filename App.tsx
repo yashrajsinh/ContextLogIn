@@ -10,22 +10,32 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import UserProfile from './src/screens/UserProfile';
 
 //Context
-import Userprovider from './src/context/UserProvider';
+import AuthProvider, { AuthContext } from './src/context/AuthProvider';
+import { useContext } from 'react';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
+  const { username } = useContext(AuthContext);
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={WelcomeScreen} />
-      <Tab.Screen name="Profile" component={UserProfile} />
+      <Tab.Screen
+        name="Home"
+        component={WelcomeScreen}
+        options={{ title: `Welcome Back, ${username}` }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={UserProfile}
+        options={{ title: `${username}'s Profile` }}
+      />
     </Tab.Navigator>
   );
 }
 function App() {
   return (
-    <Userprovider>
+    <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={LogInScreen} />
@@ -36,7 +46,7 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </Userprovider>
+    </AuthProvider>
   );
 }
 
