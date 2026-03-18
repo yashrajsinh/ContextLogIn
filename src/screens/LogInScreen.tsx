@@ -9,8 +9,12 @@ import Logo from '../components/Logo/Logo';
 //Context
 import { AuthContext } from '../context/AuthProvider';
 
+//data
+import UserData from '../data/UsersData';
+
 export default function LogInScreen() {
   const { login } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   // local state (better than storing temp input in context)
   const [email, setEmail] = useState('');
@@ -18,19 +22,26 @@ export default function LogInScreen() {
 
   function handleLogIn() {
     if (!email.trim() || !password.trim()) {
-      Alert.alert('Error!', 'Enter username and password');
+      Alert.alert('Error!', 'Enter email and password');
       return;
     }
-    //  THIS triggers navigation automatically
-    login(email, password); // ✅delegate
+
+    const foundUser = UserData.find(
+      u => u.username === email && u.password === password,
+    );
+
+    if (!foundUser) {
+      Alert.alert('Login Failed', 'Invalid email or password');
+      return;
+    }
+
+    login(foundUser); // store user in context
   }
 
   return (
     <View style={styles.container}>
       <Logo />
-
       <InputField placeholder="Email" value={email} onChangeText={setEmail} />
-
       <InputField
         placeholder="Password"
         value={password}

@@ -10,14 +10,13 @@ import { AuthContext } from '../../context/AuthProvider';
   === */
 }
 
-export default function UserInfo({ name, email, sex }: any) {
+export default function UserInfo() {
   //context
-  const { username } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{username}</Text>
-      <Text style={styles.info}>{email}</Text>
-      <Text style={styles.info}>{sex}</Text>
+      <Text style={styles.name}>{user?.username}</Text>
+      <Text style={styles.info}>{user?.sex}</Text>
     </View>
   );
 }

@@ -1,17 +1,23 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-// types
-type AuthContextType = {
+// user type
+type User = {
   username: string;
   password: string;
-  login: (user: string, pass: string) => void;
+  sex: string;
+  image: string;
+};
+
+// context type
+type AuthContextType = {
+  user: User | null;
+  login: (user: User) => void;
   logout: () => void;
 };
 
 // context
 export const AuthContext = createContext<AuthContextType>({
-  username: '',
-  password: '',
+  user: null,
   login: () => {},
   logout: () => {},
 });
@@ -22,28 +28,19 @@ type Props = {
 };
 
 export default function AuthProvider({ children }: Props) {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [user, setUser] = useState<User | null>(null);
 
-  function login(user: string, pass: string) {
-    setUsername(user);
-    setPassword(pass);
+  // simply update the user
+  function login(user: User) {
+    setUser(user);
   }
 
   function logout() {
-    setUsername('');
-    setPassword('');
+    setUser(null);
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        username,
-        password,
-        login,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

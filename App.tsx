@@ -17,19 +17,18 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
-  const { username } = useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
         component={WelcomeScreen}
-        options={{ title: `Welcome Back, ${username}` }}
+        options={{ title: `Welcome Back, ${user?.username}` }}
       />
       <Tab.Screen
         name="Profile"
         component={UserProfileScreen}
-        options={{ title: `${username}'s Profile` }}
+        options={{ title: `${user?.username}'s Profile` }}
       />
     </Tab.Navigator>
   );
@@ -37,11 +36,11 @@ function MainTabs() {
 
 // separate navigator based on auth state
 function RootNavigator() {
-  const { username } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <NavigationContainer>
-      {username ? (
+      {user ? (
         <MainTabs />
       ) : (
         <Stack.Navigator>
