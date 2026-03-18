@@ -1,5 +1,5 @@
 import { View, StyleSheet, Alert } from 'react-native';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 //components
 import LogInButton from '../components/LogInButton/LogInButton';
@@ -9,32 +9,40 @@ import Logo from '../components/Logo/Logo';
 //Context
 import { AuthContext } from '../context/AuthProvider';
 
-export default function LogInScreen({ navigation }: any) {
-  //use context
-  const { username, setUsername, password, setPassword } =
-    useContext(AuthContext);
-  //Handle login with nav
+export default function LogInScreen() {
+  const { login } = useContext(AuthContext);
+
+  // local state (better than storing temp input in context)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   function handleLogIn() {
-    navigation.navigate('MainTabs');
+    if (!email.trim() || !password.trim()) {
+      Alert.alert('Error!', 'Enter username and password');
+      return;
+    }
+    //  THIS triggers navigation automatically
+    login(email, password); // ✅delegate
   }
+
   return (
     <View style={styles.container}>
       <Logo />
-      <InputField
-        placeholder="Email"
-        value={username}
-        onChangeText={setUsername}
-      />
+
+      <InputField placeholder="Email" value={email} onChangeText={setEmail} />
+
       <InputField
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-      <LogInButton title={'log in'} onPress={handleLogIn} />
+
+      <LogInButton title="Log In" onPress={handleLogIn} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

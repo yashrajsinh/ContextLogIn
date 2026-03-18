@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //screens
 import LogInScreen from './src/screens/LogInScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
-import UserProfile from './src/screens/UserProfile';
+import UserProfileScreen from './src/screens/UserProfileScreen';
 
 //Context
 import AuthProvider, { AuthContext } from './src/context/AuthProvider';
@@ -18,6 +18,7 @@ const Tab = createBottomTabNavigator();
 
 function MainTabs() {
   const { username } = useContext(AuthContext);
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -27,25 +28,38 @@ function MainTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={UserProfile}
+        component={UserProfileScreen}
         options={{ title: `${username}'s Profile` }}
       />
     </Tab.Navigator>
   );
 }
-function App() {
+
+// separate navigator based on auth state
+function RootNavigator() {
+  const { username } = useContext(AuthContext);
+
   return (
-    <AuthProvider>
-      <NavigationContainer>
+    <NavigationContainer>
+      {username ? (
+        <MainTabs />
+      ) : (
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={LogInScreen} />
           <Stack.Screen
-            name="MainTabs"
-            component={MainTabs}
+            name="Login"
+            component={LogInScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
-      </NavigationContainer>
+      )}
+    </NavigationContainer>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <RootNavigator />
     </AuthProvider>
   );
 }

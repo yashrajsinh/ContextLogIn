@@ -1,10 +1,15 @@
 import { View, Image, StyleSheet } from 'react-native';
 import React from 'react';
 
-export default function ProfileImage({ uri }: any) {
+export default function ProfileImage() {
   return (
     <View style={styles.container}>
-      <Image source={{ uri }} style={styles.image} />
+      <Image
+        source={{
+          uri: 'https://i.pinimg.com/736x/14/43/f9/1443f9ec6547cf549ea0d581d392c60b.jpg',
+        }}
+        style={styles.image}
+      />
     </View>
   );
 }

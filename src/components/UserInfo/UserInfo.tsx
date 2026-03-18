@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 
+//Component
+
 export default function UserInfo({ name, email, sex }: any) {
   return (
     <View style={styles.container}>
