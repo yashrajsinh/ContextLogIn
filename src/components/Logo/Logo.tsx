@@ -1,6 +1,11 @@
 import { View, Image, StyleSheet } from 'react-native';
 import React from 'react';
-
+{
+  /* ===
+  Login screen image
+  This is responsible for just showing image to log in screen 
+  === */
+}
 export default function Logo() {
   return (
     <View style={styles.container}>

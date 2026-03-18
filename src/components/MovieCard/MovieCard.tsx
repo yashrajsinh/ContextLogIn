@@ -1,6 +1,11 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
-
+{
+  /* ===
+  MovieCard component 
+  This is responsible for showing movie obj data in card format 
+  === */
+}
 export default function MovieCard({ movie }: any) {
   return (
     <TouchableOpacity activeOpacity={0.9} style={styles.wrapper}>

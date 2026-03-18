@@ -1,10 +1,16 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import React from 'react';
-
-export default function LogInButton({ title, onPress }: any) {
+{
+  /* ===
+  Login Button component
+  This is responsible for login user takes 1 prop
+  1. onPress : handles the press listener
+  === */
+}
+export default function LogInButton({ onPress }: any) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text}> Login </Text>
     </TouchableOpacity>
   );
 }

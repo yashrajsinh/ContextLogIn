@@ -1,18 +1,47 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 
-export const AuthContext = createContext();
+// types
+type AuthContextType = {
+  username: string;
+  password: string;
+  login: (user: string, pass: string) => void;
+  logout: () => void;
+};
 
-export default function AuthProvider({ children }: any) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+// context
+export const AuthContext = createContext<AuthContextType>({
+  username: '',
+  password: '',
+  login: () => {},
+  logout: () => {},
+});
+
+// props
+type Props = {
+  children: ReactNode;
+};
+
+export default function AuthProvider({ children }: Props) {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  function login(user: string, pass: string) {
+    setUsername(user);
+    setPassword(pass);
+  }
+
+  function logout() {
+    setUsername('');
+    setPassword('');
+  }
 
   return (
     <AuthContext.Provider
       value={{
         username,
-        setUsername,
         password,
-        setPassword,
+        login,
+        logout,
       }}
     >
       {children}
