@@ -1,6 +1,11 @@
 import { View, Image, StyleSheet } from 'react-native';
 import React from 'react';
-
+{
+  /* ===
+  ProfileImage component 
+  Simply responsible for showing user image
+  === */
+}
 export default function ProfileImage() {
   return (
     <View style={styles.container}>

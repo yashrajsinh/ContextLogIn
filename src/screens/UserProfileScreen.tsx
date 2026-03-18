@@ -1,35 +1,27 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import React, { useContext } from 'react';
 
-// Components
+//Components
 import ProfileImage from '../components/ProfileImage/ProfileImage';
 import UserInfo from '../components/UserInfo/UserInfo';
+import ProfileHandlers from '../components/ProfileHandlers/ProfileHandlers';
 
-// Context
+//Context
 import { AuthContext } from '../context/AuthProvider';
 
 export default function UserProfile() {
-  const { username, setUsername } = useContext(AuthContext);
-
-  const user = {
-    name: username || 'Guest',
-    email: 'user@email.com',
-    sex: 'Male',
-    image: 'https://i.pravatar.cc/300',
-  };
-
-  function handleEdit() {
-    console.log('Edit Profile');
+  const { logout } = useContext(AuthContext);
+  function handleLogOut() {
+    Alert.alert('Confirm Logout', 'Are you sure?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Logout', onPress: logout },
+    ]);
   }
-
-  function handleLogout() {
-    setUsername(null); // 🔥 logout
-  }
-
   return (
     <View style={styles.container}>
-      <ProfileImage uri={user.image} />
-      <UserInfo name={user.name} email={user.email} sex={user.sex} />
+      <ProfileImage />
+      <UserInfo />
+      <ProfileHandlers onLogout={handleLogOut} />
     </View>
   );
 }

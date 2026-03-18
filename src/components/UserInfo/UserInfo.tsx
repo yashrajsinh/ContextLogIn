@@ -1,12 +1,21 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 
-//Component
+//Context
+import { AuthContext } from '../../context/AuthProvider';
+{
+  /* ===
+  UserInfo component 
+  Shows details of user data name etc
+  === */
+}
 
 export default function UserInfo({ name, email, sex }: any) {
+  //context
+  const { username } = useContext(AuthContext);
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{username}</Text>
       <Text style={styles.info}>{email}</Text>
       <Text style={styles.info}>{sex}</Text>
     </View>

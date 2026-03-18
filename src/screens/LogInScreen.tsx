@@ -38,7 +38,7 @@ export default function LogInScreen() {
         secureTextEntry
       />
 
-      <LogInButton title="Log In" onPress={handleLogIn} />
+      <LogInButton onPress={handleLogIn} />
     </View>
   );
 }
