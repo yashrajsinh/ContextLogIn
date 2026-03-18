@@ -9,7 +9,7 @@ const movies = [
   {
     id: 2,
     name: 'Interstellar',
-    image: 'https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqoNMqY9JdXzEl.jpg',
+    image: 'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',
     description: 'Explorers travel through a wormhole to save humanity.',
   },
   {
