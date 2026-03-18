@@ -7,10 +7,10 @@ import React from 'react';
   1. onPress : handles the press listener
   === */
 }
-export default function LogInButton({ onPress }: any) {
+export default function LogInButton({ text, onPress }: any) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}> Login </Text>
+      <Text style={styles.text}> {text}</Text>
     </TouchableOpacity>
   );
 }

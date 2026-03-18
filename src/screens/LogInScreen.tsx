@@ -14,8 +14,6 @@ import UserData from '../data/UsersData';
 
 export default function LogInScreen() {
   const { login } = useContext(AuthContext);
-  const { user } = useContext(AuthContext);
-
   // local state (better than storing temp input in context)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +47,7 @@ export default function LogInScreen() {
         secureTextEntry
       />
 
-      <LogInButton onPress={handleLogIn} />
+      <LogInButton text={'Log in'} onPress={handleLogIn} />
     </View>
   );
 }
