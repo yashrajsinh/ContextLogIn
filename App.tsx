@@ -10,7 +10,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import UserProfile from './src/screens/UserProfile';
 
 //Context
-import Userprovider from './src/context/UserProvider';
+import AuthProvider from './src/context/AuthProvider';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,14 +18,18 @@ const Tab = createBottomTabNavigator();
 function MainTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={WelcomeScreen} />
+      <Tab.Screen
+        name="Home"
+        component={WelcomeScreen}
+        options={{ title: 'Just for you' }}
+      />
       <Tab.Screen name="Profile" component={UserProfile} />
     </Tab.Navigator>
   );
 }
 function App() {
   return (
-    <Userprovider>
+    <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={LogInScreen} />
@@ -36,7 +40,7 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </Userprovider>
+    </AuthProvider>
   );
 }
 
