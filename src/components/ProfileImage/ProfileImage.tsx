@@ -1,5 +1,6 @@
 import { View, Image, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
 {
   /* ===
   ProfileImage component 
@@ -7,11 +8,12 @@ import React from 'react';
   === */
 }
 export default function ProfileImage() {
+  const { user } = useContext(AuthContext); // get the logged-in user
   return (
     <View style={styles.container}>
       <Image
         source={{
-          uri: 'https://i.pinimg.com/736x/14/43/f9/1443f9ec6547cf549ea0d581d392c60b.jpg',
+          uri: user?.image,
         }}
         style={styles.image}
       />
