@@ -1,23 +1,37 @@
-//Navigation
+// Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//Bottom nav
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useContext } from 'react';
 
-//screens
+// Screens
 import LogInScreen from './src/screens/LogInScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import UserProfileScreen from './src/screens/UserProfileScreen';
+import ProfileUpdateScreen from './src/screens/ProfileUpdateScreen';
 
-//Context
+// Context
 import AuthProvider, { AuthContext } from './src/context/AuthProvider';
-import { useContext } from 'react';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+// Stack for Profile tab
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileStackNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="ProfileHome" component={UserProfileScreen} />
+      <ProfileStack.Screen name="Update" component={ProfileUpdateScreen} />
+    </ProfileStack.Navigator>
+  );
+}
+
+// Bottom Tabs
 function MainTabs() {
   const { user } = useContext(AuthContext);
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -27,14 +41,14 @@ function MainTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={UserProfileScreen}
+        component={ProfileStackNavigator} // Nested stack
         options={{ title: `${user?.username}'s Profile` }}
       />
     </Tab.Navigator>
   );
 }
 
-// separate navigator based on auth state
+// Root Navigator
 function RootNavigator() {
   const { user } = useContext(AuthContext);
 
@@ -43,24 +57,19 @@ function RootNavigator() {
       {user ? (
         <MainTabs />
       ) : (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LogInScreen}
-            options={{ headerShown: false }}
-          />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LogInScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
   );
 }
 
-function App() {
+// App
+export default function App() {
   return (
     <AuthProvider>
       <RootNavigator />
     </AuthProvider>
   );
 }
-
-export default App;

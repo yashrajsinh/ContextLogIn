@@ -9,7 +9,7 @@ import ProfileHandlers from '../components/ProfileHandlers/ProfileHandlers';
 //Context
 import { AuthContext } from '../context/AuthProvider';
 
-export default function UserProfile() {
+export default function UserProfile({ navigation }: any) {
   const { logout } = useContext(AuthContext);
   function handleLogOut() {
     Alert.alert('Confirm Logout', 'Are you sure?', [
@@ -21,7 +21,10 @@ export default function UserProfile() {
     <View style={styles.container}>
       <ProfileImage />
       <UserInfo />
-      <ProfileHandlers onLogout={handleLogOut} />
+      <ProfileHandlers
+        onEdit={() => navigation.navigate('Update')}
+        onLogout={handleLogOut}
+      />
     </View>
   );
 }
